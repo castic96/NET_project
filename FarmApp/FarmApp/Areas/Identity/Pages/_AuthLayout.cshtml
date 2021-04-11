@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}
