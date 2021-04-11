@@ -17,5 +17,9 @@ namespace FarmApp.Data
         }
 
         public DbSet<FarmApp.Models.Movie> Movie { get; set; }
+        public DbSet<Shop> Shops { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
     }
 }
