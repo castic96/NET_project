@@ -1,21 +1,16 @@
 ﻿@page
-@model RegisterModel
+@model RegisterFarmerModel
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Areas/Identity/Pages/_RegisterLayout.cshtml";
 }
 
-<h1>@ViewData["Title"] as customer</h1>
+<h1>@ViewData["Title"] as farmer</h1>
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
     <h4>Create a new account.</h4>
     <hr />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
-    </div>
     <div class="form-group">
         <label asp-for="Input.Password"></label>
         <input asp-for="Input.Password" class="form-control" />

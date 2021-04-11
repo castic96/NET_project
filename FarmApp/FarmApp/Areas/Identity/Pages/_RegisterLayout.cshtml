@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+}
+
+<div class="card login-logout-tab">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/Identity/Account/Register" id="customer-form-link">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Identity/Account/RegisterFarmer" id="farmer-form-link">Farmer</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/register.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+}
