@@ -38,6 +38,7 @@ namespace FarmApp
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<FarmAppContext>();
 
             //services.AddIdentity<User, IdentityRole>()

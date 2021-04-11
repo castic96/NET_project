@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FarmApp.Data;
 using FarmApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FarmApp.Pages.Movies
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly FarmApp.Data.FarmAppContext _context;

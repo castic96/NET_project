@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Data
 {
-    public class FarmAppContext : IdentityDbContext<User>
+    public class FarmAppContext : IdentityDbContext<User, IdentityRole, string>
     {
         public FarmAppContext (DbContextOptions<FarmAppContext> options)
             : base(options)
