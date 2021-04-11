@@ -19,5 +19,23 @@ namespace FarmApp.Models
         [Display(Name = "Last Name")]
         [Column(TypeName = "nvarchar(100)")]
         public string LastName { get; set; }
+
+        [PersonalData]
+        [Display(Name = "Street")]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Street { get; set; }
+
+        [PersonalData]
+        [Display(Name = "City")]
+        [Column(TypeName = "nvarchar(100)")]
+        public string City { get; set; }
+
+        [PersonalData]
+        [Display(Name = "Postal Code")]
+        [Column(TypeName = "bigint")]
+        public int PostalCode { get; set; }
+
+        [Column(TypeName = "tinyint")]
+        public int IsFarmer { get; set; }
     }
 }

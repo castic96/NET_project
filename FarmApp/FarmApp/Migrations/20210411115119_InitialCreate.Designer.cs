@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    [Migration("20210411084314_InitialCreate")]
+    [Migration("20210411115119_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,9 @@ namespace FarmApp.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -62,6 +65,9 @@ namespace FarmApp.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("IsFarmer")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(100)");
@@ -89,8 +95,14 @@ namespace FarmApp.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");

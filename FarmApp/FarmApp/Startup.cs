@@ -32,7 +32,12 @@ namespace FarmApp
             services.AddDbContext<FarmAppContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("FarmAppContext")));
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<User>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+            })
                 .AddEntityFrameworkStores<FarmAppContext>();
 
             //services.AddIdentity<User, IdentityRole>()

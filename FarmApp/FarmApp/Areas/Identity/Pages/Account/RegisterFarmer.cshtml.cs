@@ -61,6 +61,31 @@ namespace FarmApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Street")]
+            public string Street { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
+            [DataType(DataType.PostalCode)]
+            [Display(Name = "Postal Code")]
+            public int PostalCode { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,7 +100,16 @@ namespace FarmApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Street = Input.Street,
+                    City = Input.City,
+                    PostalCode = Input.PostalCode,
+                    IsFarmer = 1
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
