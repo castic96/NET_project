@@ -27,7 +27,29 @@ namespace FarmApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy("Farmers", policy => 
+                {
+                    policy.RequireAuthenticatedUser()
+                    .RequireRole("Farmer");
+                });
+
+                options.AddPolicy("Customers", policy =>
+                {
+                    policy.RequireAuthenticatedUser()
+                    .RequireRole("Customer");
+                });
+            });
+
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation()
+                .AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AuthorizeFolder("/Authorized");
+                    options.Conventions.AuthorizeFolder("/Authorized/Farmer", "Farmers");
+                    options.Conventions.AuthorizeFolder("/Authorized/Customer", "Customers");
+                });
 
             services.AddDbContext<FarmAppContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("FarmAppContext")));

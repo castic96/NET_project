@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FarmApp.Models;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav flex-grow-1">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("Customer"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/Authorized/Customer/Index">Go to the App</a>
+            </li>
+        }
+        else if (User.IsInRole("Farmer"))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-page="/Authorized/Farmer/Index">Go to the App</a>
+            </li>
+        }
+    }
+</ul>

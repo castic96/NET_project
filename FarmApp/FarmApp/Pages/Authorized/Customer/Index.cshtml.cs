@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FarmApp.Pages
+namespace FarmApp.Pages.Authorized.Customer
 {
     public class IndexModel : PageModel
     {
