@@ -1,0 +1,75 @@
+﻿@page
+@model FarmApp.Pages.Authorized.Farmer.Shops.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Shop</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Shop.Id" />
+            <div class="form-group">
+                <label asp-for="Shop.Name" class="control-label"></label>
+                <input asp-for="Shop.Name" class="form-control" />
+                <span asp-validation-for="Shop.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Description" class="control-label"></label>
+                <input asp-for="Shop.Description" class="form-control" />
+                <span asp-validation-for="Shop.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Email" class="control-label"></label>
+                <input asp-for="Shop.Email" class="form-control" />
+                <span asp-validation-for="Shop.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Street" class="control-label"></label>
+                <input asp-for="Shop.Street" class="form-control" />
+                <span asp-validation-for="Shop.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.City" class="control-label"></label>
+                <input asp-for="Shop.City" class="form-control" />
+                <span asp-validation-for="Shop.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.PostalCode" class="control-label"></label>
+                <input asp-for="Shop.PostalCode" class="form-control" />
+                <span asp-validation-for="Shop.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Latitude" class="control-label"></label>
+                <input asp-for="Shop.Latitude" class="form-control" />
+                <span asp-validation-for="Shop.Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Longitude" class="control-label"></label>
+                <input asp-for="Shop.Longitude" class="form-control" />
+                <span asp-validation-for="Shop.Longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.CreateDate" class="control-label"></label>
+                <input asp-for="Shop.CreateDate" class="form-control" />
+                <span asp-validation-for="Shop.CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

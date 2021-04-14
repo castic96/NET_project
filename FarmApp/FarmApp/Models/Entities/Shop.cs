@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace FarmApp.Models
 {
-    public class Shop
+    public class Shop : BaseEntity
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -43,7 +44,7 @@ namespace FarmApp.Models
         [Range(-180.0, 180.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
         public double Longitude { get; set; }
 
-        [Required]
+        //[Required]
         public User Owner { get; set; }
 
         public List<Review> Reviews { get; set; }
@@ -51,12 +52,6 @@ namespace FarmApp.Models
         public List<Favourite> Favourites { get; set; }
 
         public List<Message> Messages { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreateDate { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime ModifiedDate { get; set; }
 
     }
 }
