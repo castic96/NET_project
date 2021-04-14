@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+@section LeftNavbar {
+    <partial name="_LoggedUserNavbarNavigateToApp" />
+}
+
+@RenderBody()
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}

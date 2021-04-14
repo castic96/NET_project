@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FarmApp.Models;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+@section LeftNavbar {
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (User.IsInRole("Customer"))
+        {
+            <partial name="~/Pages/Authorized/Customer/Shared/_CustomerLeftNavbar.cshtml" />
+        }
+        else if (User.IsInRole("Farmer"))
+        {
+            <partial name="~/Pages/Authorized/Farmer/Shared/_FarmerLeftNavbar.cshtml" />
+        }
+    }
+}
+
+@RenderBody()
+
+@section Scripts {
+    @await RenderSectionAsync("Scripts", required: false)
+}
