@@ -23,6 +23,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         }
 
         public Shop Shop { get; set; }
+        public IList<Review> Review { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -43,7 +44,34 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                 return NotFound();
             }
 
+            Review = await _context.Reviews
+                    .Where(review => review.Shop.Id == id)
+                    .OrderByDescending(review => review.CreateDate)
+                    .Take(3)
+                    .ToListAsync();
+
+            if (Review.Any())
+            {
+                CutReviewText();
+            }
+
             return Page();
+        }
+
+        private void CutReviewText()
+        {
+            int maxLength = 100;
+
+            foreach (var currentReview in Review)
+            {
+                var currentComment = currentReview.Comment;
+
+                if (currentComment.Length > maxLength)
+                {
+                    currentComment = currentComment.Substring(0, maxLength - 3) + "...";
+                    currentReview.Comment = currentComment;
+                }
+            }
         }
 
         private bool IsOwnerOfCurrentShop()

@@ -57,18 +57,21 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
-                <a class="product-thumb" asp-page="/Authorized/Farmer/Review" asp-route-id="@Model.Shop.Id"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
-                <div class="product-card-body">
-                    <br />
-                    <div class="product-head d-flex justify-content-between align-items-center">
-                        <div class="rating-stars">
-                            <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
-                        </div>
-                    </div>
+                <div class="product-card-body" style="text-align: justify;">
                     <span class="product-price">
-                        @Html.DisplayFor(model => model.Shop.Street)<br>
-                        @Html.DisplayFor(model => model.Shop.PostalCode), @Html.DisplayFor(model => model.Shop.City)
+                        <b>Reviews</b>&nbsp;&nbsp;
+                        <a asp-page="/Authorized/Farmer/Review" asp-route-id="@Model.Shop.Id"><i class="fas fa-ellipsis-h fa-sm text-black-50"></i></a>
                     </span>
+                    <br />
+                    @foreach (var item in Model.Review)
+                    {
+                        <div class="row  d-flex align-items-center">
+                            <div class="col">
+                                @Html.DisplayFor(modelItem => item.Comment)
+                            </div>
+                        </div>
+                        <hr />
+                    }
                 </div>
             </div>
         </div>
