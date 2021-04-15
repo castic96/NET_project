@@ -21,6 +21,7 @@
     <small><i>Created: @Html.DisplayFor(model => model.Shop.CreateDate)</i></small><br />
     <small><i>Last Modified: @Html.DisplayFor(model => model.Shop.ModifiedDate)</i></small>
     <br />
+    <hr />
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
@@ -56,7 +57,7 @@
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
-                <a class="product-thumb" href="#"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
+                <a class="product-thumb" asp-page="/Authorized/Farmer/Review" asp-route-id="@Model.Shop.Id"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
                 <div class="product-card-body">
                     <br />
                     <div class="product-head d-flex justify-content-between align-items-center">
@@ -72,7 +73,8 @@
             </div>
         </div>
     </div>
+</div>
 
-    @section Scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
-    }
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
+}
