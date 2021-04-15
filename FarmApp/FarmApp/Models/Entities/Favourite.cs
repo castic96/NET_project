@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmApp.Models
 {
-    public class Favourite
+    public class Favourite : BaseEntity
     {
 
         [Key]
@@ -18,12 +18,6 @@ namespace FarmApp.Models
 
         [Required]
         public Shop Shop { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreateDate { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime ModifiedDate { get; set; }
 
     }
 }

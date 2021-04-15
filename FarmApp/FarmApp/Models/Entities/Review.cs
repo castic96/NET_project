@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FarmApp.Models
 {
-    public class Review
+    public class Review : BaseEntity
     {
         [Key]
         public int Id { get; set; }
@@ -23,11 +23,5 @@ namespace FarmApp.Models
 
         [DataType(DataType.Text)]
         public string Comment { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreateDate { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime ModifiedDate { get; set; }
     }
 }

@@ -55,9 +55,7 @@
                 <span asp-validation-for="Shop.Longitude" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Shop.CreateDate" class="control-label"></label>
-                <input asp-for="Shop.CreateDate" class="form-control" />
-                <span asp-validation-for="Shop.CreateDate" class="text-danger"></span>
+                <input type="hidden" asp-for="Shop.CreateDate" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
