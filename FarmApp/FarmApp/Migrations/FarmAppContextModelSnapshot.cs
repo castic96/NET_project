@@ -23,11 +23,9 @@ namespace FarmApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ShopId")
@@ -53,11 +51,9 @@ namespace FarmApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ShopId")
@@ -113,11 +109,9 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Rating")
@@ -145,7 +139,6 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreateDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -154,14 +147,13 @@ namespace FarmApp.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(10, 7)");
 
-                    b.Property<double>("Longitude")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(10, 7)");
 
                     b.Property<DateTime>("ModifiedDate")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -169,7 +161,6 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OwnerId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PostalCode")
@@ -460,9 +451,7 @@ namespace FarmApp.Migrations
                 {
                     b.HasOne("FarmApp.Models.User", "Owner")
                         .WithMany("Shops")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
                 });

@@ -186,9 +186,9 @@ namespace FarmApp.Migrations
                     Street = table.Column<string>(type: "TEXT", nullable: true),
                     City = table.Column<string>(type: "TEXT", nullable: true),
                     PostalCode = table.Column<int>(type: "INTEGER", nullable: false),
-                    Latitude = table.Column<double>(type: "REAL", nullable: false),
-                    Longitude = table.Column<double>(type: "REAL", nullable: false),
-                    OwnerId = table.Column<string>(type: "TEXT", nullable: false),
+                    Latitude = table.Column<decimal>(type: "decimal(10, 7)", nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(10, 7)", nullable: false),
+                    OwnerId = table.Column<string>(type: "TEXT", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -200,7 +200,7 @@ namespace FarmApp.Migrations
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

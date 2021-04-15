@@ -37,12 +37,14 @@ namespace FarmApp.Models
         public int PostalCode { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(10, 7)")]
         [Range(-90.0, 90.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
-        public double Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(10, 7)")]
         [Range(-180.0, 180.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
-        public double Longitude { get; set; }
+        public decimal Longitude { get; set; }
 
         //[Required]
         public User Owner { get; set; }

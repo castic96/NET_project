@@ -35,7 +35,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             // Fungujici alternativa:
             //Shop.Owner = _context.Users.FirstOrDefault(owner => owner.Id == _userManager.GetUserId(User));
-            Shop.Owner = await _context.Users.FindAsync(_userManager.GetUserId(User));
+            Shop.Owner = _context.Users.Find(_userManager.GetUserId(User));
 
 
             if (!ModelState.IsValid)
