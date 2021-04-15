@@ -13,17 +13,4 @@
         Morbi sit amet laoreet quam. Proin commodo pharetra orci, a facilisis augue consequat non. Aliquam a risus at eros commodo ullamcorper vel ut quam. Morbi sit amet cursus velit. Pellentesque est erat, vestibulum a vulputate non, euismod ac leo. Duis malesuada leo nisl, at scelerisque est interdum quis. Proin rhoncus arcu quam, et aliquet turpis dapibus a. Morbi tempor auctor enim, id efficitur tortor rhoncus sit amet. Nam dignissim eu tortor et pellentesque. Vestibulum sagittis turpis mi, et interdum ligula tempor vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam elit ante, blandit ac lorem id, aliquam ultrices nisi.
     </p>
 
-    @if (User.IsInRole("Customer"))
-    {
-        <p>Role: <em>Customer</em></p>
-    }
-    else if (User.IsInRole("Farmer"))
-    {
-        <p>Role: <em>Farmer</em></p>
-    }
-    else if (User.IsInRole("Admin"))
-    {
-        <p>Role: <em>Admin</em></p>
-    }
-
 </div>
