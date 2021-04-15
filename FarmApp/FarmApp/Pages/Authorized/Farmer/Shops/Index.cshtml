@@ -8,54 +8,52 @@
 
 <h1>My Shops</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop[0].Street)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop[0].City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Shop[0].PostalCode)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Shop) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Street)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="row">
+    <div class="col" style="margin-top: 10px;">
+        <p>
+            <a asp-page="Create">
+                <i class="fas fa-plus-square fa-2x"></i>
+            </a>
+        </p>
+    </div>
+</div>
+
+
+<div class="row">
+    @foreach (var item in Model.Shop)
+    {
+
+        <div class="col-lg-4 col-sm-6 mb-30">
+            <div class="product-card mx-auto mb-3">
+                <div class="product-head d-flex justify-content-between align-items-center">
+                    <div class="rating-stars">
+                        <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+                    </div>
+                </div>
+                <a class="product-thumb" href="./Shops/Details/@item.Id"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
+                <div class="product-card-body">
+                    <br />
+                    <h5 class="product-title"><a asp-page="./Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                    <span class="product-price">
+                        @Html.DisplayFor(modelItem => item.Street)<br>
+                        @Html.DisplayFor(modelItem => item.PostalCode), @Html.DisplayFor(modelItem => item.City)
+                    </span>
+                </div>
+                <div class="product-buttons-wrap">
+                    <div class="product-buttons">
+                        <div class="product-button"><a asp-page="./Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i></a></div>
+                        <div class="product-button"><a asp-page="./Edit" asp-route-id="@item.Id"><i class="fas fa-edit fa-lg"></i></a></div>
+                        <div class="product-button"><a asp-page="./Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt fa-lg"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
 }
-    </tbody>
-</table>
