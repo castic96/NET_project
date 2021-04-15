@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
     public class DetailsModel : PageModel
     {
         private readonly FarmApp.Data.FarmAppContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public DetailsModel(FarmApp.Data.FarmAppContext context)
+        public DetailsModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public Shop Shop { get; set; }
@@ -34,7 +37,21 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             {
                 return NotFound();
             }
+
+            if (!IsOwnerOfCurrentShop())
+            {
+                return NotFound();
+            }
+
             return Page();
+        }
+
+        private bool IsOwnerOfCurrentShop()
+        {
+            var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
+            var loggedUserShops = loggedUser.Shops;
+            if (loggedUserShops != null && loggedUserShops.Contains(Shop)) return true;
+            return false;
         }
     }
 }

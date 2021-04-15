@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
     public class EditModel : PageModel
     {
         private readonly FarmApp.Data.FarmAppContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public EditModel(FarmApp.Data.FarmAppContext context)
+        public EditModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -36,6 +39,12 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             {
                 return NotFound();
             }
+
+            if (!IsOwnerOfCurrentShop())
+            {
+                return NotFound();
+            }
+
             return Page();
         }
 
@@ -72,6 +81,14 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         private bool ShopExists(int id)
         {
             return _context.Shops.Any(e => e.Id == id);
+        }
+
+        private bool IsOwnerOfCurrentShop()
+        {
+            var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
+            var loggedUserShops = loggedUser.Shops;
+            if (loggedUserShops != null && loggedUserShops.Contains(Shop)) return true;
+            return false;
         }
     }
 }
