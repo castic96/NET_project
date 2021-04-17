@@ -69,7 +69,7 @@
                     }
                     <div class="product-buttons-wrap">
                         <div class="product-buttons">
-                            <div class="product-button"> <a asp-page="/Authorized/Customer/Reviews/Create"><i class="fa fa-plus text-black-50" aria-hidden="true"></i></a></div>
+                            <div class="product-button"> <a asp-page="/Authorized/Customer/Reviews/Create" asp-route-id="@Model.Shop.Id"><i class="fa fa-plus text-black-50" aria-hidden="true"></i></a></div>
                             <div class="product-button"> <a asp-page="/Authorized/Customer/Reviews/Index" asp-route-id="@Model.Shop.Id"><i class="fas fa-ellipsis-h fa-sm text-black-50"></i></a></div>
                         </div>
                     </div>
