@@ -60,7 +60,6 @@
                 <div class="product-card-body" style="text-align: justify;">
                     <span class="product-price">
                         <b>Reviews</b>&nbsp;&nbsp;
-                        <a asp-page="/Authorized/Farmer/Review" asp-route-id="@Model.Shop.Id"><i class="fas fa-ellipsis-h fa-sm text-black-50"></i></a>
                     </span>
                     <br />
                     @foreach (var item in Model.Review)
@@ -72,6 +71,12 @@
                         </div>
                         <hr />
                     }
+                    <div class="product-buttons-wrap">
+                        <div class="product-buttons">
+                            <div class="product-button"> <a asp-page="/Authorized/Farmer/Review" asp-route-id="@Model.Shop.Id"><i class="fas fa-ellipsis-h fa-sm text-black-50"></i></a></div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
