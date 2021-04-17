@@ -9,7 +9,7 @@ using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FarmApp.Pages.Authorized.Farmer.Shops
+namespace FarmApp.Pages.Authorized.Customer.Find
 {
     public class DetailsModel : PageModel
     {
@@ -23,7 +23,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         }
 
         public Shop Shop { get; set; }
-        public IList<Review> Reviews { get; set; }
+        public IList<Review> Review { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -39,18 +39,13 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                 return NotFound();
             }
 
-            if (!IsOwnerOfCurrentShop())
-            {
-                return NotFound();
-            }
-
-            Reviews = await _context.Reviews
+            Review = await _context.Reviews
                     .Where(review => review.Shop.Id == id)
                     .OrderByDescending(review => review.CreateDate)
                     .Take(3)
                     .ToListAsync();
 
-            if (Reviews.Any())
+            if (Review.Any())
             {
                 CutReviewText();
             }
@@ -62,7 +57,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             int maxLength = 100;
 
-            foreach (var currentReview in Reviews)
+            foreach (var currentReview in Review)
             {
                 var currentComment = currentReview.Comment;
 
@@ -72,14 +67,6 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                     currentReview.Comment = currentComment;
                 }
             }
-        }
-
-        private bool IsOwnerOfCurrentShop()
-        {
-            var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
-            var loggedUserShops = loggedUser.Shops;
-            if (loggedUserShops != null && loggedUserShops.Contains(Shop)) return true;
-            return false;
         }
     }
 }

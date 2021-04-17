@@ -9,7 +9,7 @@ using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace FarmApp.Pages.Authorized.Farmer.Shops
+namespace FarmApp.Pages.Authorized.Customer.Find
 {
     public class IndexModel : PageModel
     {
@@ -27,7 +27,6 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         public async Task OnGetAsync()
         {
             Shop = await _context.Shops
-                                    .Where(shop => shop.Owner.Id == _userManager.GetUserId(User))
                                     .OrderByDescending(shop => shop.CreateDate)
                                     .ToListAsync();
         }

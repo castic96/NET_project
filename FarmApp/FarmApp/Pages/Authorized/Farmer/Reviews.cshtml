@@ -1,8 +1,8 @@
 ﻿@page "{id:int?}"
-@model FarmApp.Pages.Authorized.Farmer.ReviewModel
+@model FarmApp.Pages.Authorized.Farmer.ReviewsModel
 
 @{
-    ViewData["Title"] = "Review";
+    ViewData["Title"] = "Reviews";
     Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
 }
 
@@ -19,7 +19,7 @@
     </div>
     <hr />
 
-    @foreach (var item in Model.Review)
+    @foreach (var item in Model.Reviews)
     {
         <div class="row  d-flex align-items-center">
             <div class="col-lg-4 col-md-6 col-sm-8 text-center">

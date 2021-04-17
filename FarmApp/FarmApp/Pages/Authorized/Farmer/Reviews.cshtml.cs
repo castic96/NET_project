@@ -10,16 +10,16 @@ using FarmApp.Models;
 
 namespace FarmApp.Pages.Authorized.Farmer
 {
-    public class ReviewModel : PageModel
+    public class ReviewsModel : PageModel
     {
         private readonly FarmApp.Data.FarmAppContext _context;
 
-        public ReviewModel(FarmApp.Data.FarmAppContext context)
+        public ReviewsModel(FarmApp.Data.FarmAppContext context)
         {
             _context = context;
         }
 
-        public IList<Review> Review { get;set; }
+        public IList<Review> Reviews { get;set; }
         public Shop Shop { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -36,7 +36,7 @@ namespace FarmApp.Pages.Authorized.Farmer
                 return NotFound();
             }
 
-            Review = await _context.Reviews
+            Reviews = await _context.Reviews
                                 .Where(review => review.Shop.Id == id)
                                 .Include(review => review.Author)
                                 .OrderByDescending(review => review.CreateDate)
