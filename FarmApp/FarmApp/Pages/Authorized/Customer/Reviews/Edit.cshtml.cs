@@ -33,7 +33,9 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
                 return NotFound();
             }
 
-            Review = await _context.Reviews.FirstOrDefaultAsync(m => m.Id == id);
+            Review = await _context.Reviews
+                            .Include(review => review.Shop)
+                            .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Review == null)
             {
@@ -52,6 +54,7 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -75,7 +78,10 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
                 }
             }
 
-            return RedirectToPage("./Index");
+            _context.Entry(Review).Reload();
+            _context.Entry(Review).Reference(review => review.Shop).Load();
+
+            return RedirectToPage("./Index", new { id = Review.Shop.Id });
         }
 
         private bool ReviewExists(int id)
