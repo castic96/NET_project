@@ -11,7 +11,11 @@
 <hr />
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Shop.Name)&nbsp;&nbsp;<a asp-page="./Edit" asp-route-id="@Model.Shop.Id"><i class="fas fa-edit fa-sm"></i></a></h4>
+    <h4>
+        @Html.DisplayFor(model => model.Shop.Name)
+        &nbsp;&nbsp;<a asp-page="./Edit" asp-route-id="@Model.Shop.Id"><i class="fas fa-edit fa-sm"></i></a>
+        &nbsp;<a asp-page="./Delete" asp-route-id="@Model.Shop.Id"><i class="far fa-trash-alt fa-sm"></i></a>
+    </h4>
     <div class="product-head d-flex justify-content-between align-items-center">
         <div class="rating-stars">
             <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
