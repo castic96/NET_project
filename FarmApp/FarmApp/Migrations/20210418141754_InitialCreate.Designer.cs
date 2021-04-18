@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    [Migration("20210418132507_InitialCreate")]
+    [Migration("20210418141754_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
