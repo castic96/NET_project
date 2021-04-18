@@ -474,3 +474,9 @@
     color: red;
     cursor: pointer;
 }
+
+.btn-navigation {
+    width: 100pt;
+    margin: 5pt;
+    margin-top: 30pt;
+}
