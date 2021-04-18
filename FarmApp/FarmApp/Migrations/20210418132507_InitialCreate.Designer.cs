@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    [Migration("20210415085245_InitialCreate")]
+    [Migration("20210418132507_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,11 +30,10 @@ namespace FarmApp.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ShopId")
+                    b.Property<int?>("ShopId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -74,29 +73,6 @@ namespace FarmApp.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("FarmApp.Models.Movie", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Genre")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Movie");
-                });
-
             modelBuilder.Entity("FarmApp.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -104,7 +80,6 @@ namespace FarmApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("AuthorId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Comment")
@@ -119,7 +94,7 @@ namespace FarmApp.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ShopId")
+                    b.Property<int?>("ShopId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -396,15 +371,11 @@ namespace FarmApp.Migrations
                 {
                     b.HasOne("FarmApp.Models.Shop", "Shop")
                         .WithMany("Favourites")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShopId");
 
                     b.HasOne("FarmApp.Models.User", "User")
                         .WithMany("Favourites")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Shop");
 
@@ -434,15 +405,11 @@ namespace FarmApp.Migrations
                 {
                     b.HasOne("FarmApp.Models.User", "Author")
                         .WithMany("Reviews")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("FarmApp.Models.Shop", "Shop")
                         .WithMany("Reviews")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShopId");
 
                     b.Navigation("Author");
 
