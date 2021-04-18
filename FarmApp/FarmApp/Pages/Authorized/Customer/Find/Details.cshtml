@@ -6,12 +6,29 @@
     Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Identity
+@using FarmApp.Models;
+@using FarmApp.Models.Services;
+
+@inject UserManager<User> UserManager
+@inject IFavouriteService FavouriteService
+
 <h1>Details</h1>
 <a asp-page="./Index"><i class="fas fa-caret-square-left fa-2x"></i></a>
 <hr />
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Shop.Name)</h4>
+    <h4>
+        @Html.DisplayFor(model => model.Shop.Name)&nbsp;
+        @if (FavouriteService.IsFavourite(Model.Shop, UserManager.GetUserId(User)))
+        {
+            <a asp-page="/Authorized/Customer/Favourites/Delete" asp-route-id="@FavouriteService.FindFavouriteId(Model.Shop, UserManager.GetUserId(User))"><i class="fas fa-heart fa-sm" style="color: red;"></i></a>
+        }
+        else
+        {
+            <a asp-page="/Authorized/Customer/Favourites/Create" asp-route-id="@Model.Shop.Id" style="color: grey;"><i class="fas fa-heart fa-sm"></i></a>
+        }
+    </h4>
     <div class="product-head d-flex justify-content-between align-items-center">
         <div class="rating-stars">
             <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
