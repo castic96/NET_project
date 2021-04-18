@@ -56,11 +56,18 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
 
             Shop = await _context.Shops.FindAsync(id);
 
-            if (Shop != null)
+            if (Shop == null)
             {
-                _context.Shops.Remove(Shop);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
+
+            if (!IsOwnerOfCurrentShop())
+            {
+                return NotFound();
+            }
+
+            _context.Shops.Remove(Shop);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

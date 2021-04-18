@@ -32,7 +32,9 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
                 return NotFound();
             }
 
-            Review = await _context.Reviews.FirstOrDefaultAsync(m => m.Id == id);
+            Review = await _context.Reviews
+                                .Include(review => review.Shop)
+                                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Review == null)
             {
@@ -54,15 +56,25 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
                 return NotFound();
             }
 
-            Review = await _context.Reviews.FindAsync(id);
+            Review = await _context.Reviews
+                    .Include(review => review.Shop)
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Review != null)
+            if (Review == null)
             {
-                _context.Reviews.Remove(Review);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            if (!IsOwnerOfCurrentReview())
+            {
+                return NotFound();
+            }
+
+            int shopId = Review.Shop.Id;
+            _context.Reviews.Remove(Review);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index", new { id = shopId });
         }
 
         private bool IsOwnerOfCurrentReview()
