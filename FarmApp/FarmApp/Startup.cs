@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using FarmApp.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using FarmApp.Models.Services;
 
 namespace FarmApp
 {
@@ -29,6 +30,9 @@ namespace FarmApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<IFavouriteService, FavouriteService>();
+
             services.AddAuthorization(options => 
             {
                 options.AddPolicy("Farmers", policy => 

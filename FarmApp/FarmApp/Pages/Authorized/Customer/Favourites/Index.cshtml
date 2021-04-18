@@ -1,0 +1,46 @@
+﻿@page
+@model FarmApp.Pages.Authorized.Customer.Favourites.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
+}
+
+<h1>Favourites</h1>
+<hr />
+
+<div class="row">
+    @foreach (var item in Model.Favourite)
+    {
+
+        <div class="col-lg-4 col-sm-6 mb-30">
+            <div class="product-card mx-auto mb-3">
+                <div class="product-head d-flex justify-content-between align-items-center">
+                    <div class="rating-stars">
+                        <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+                    </div>
+                    <div><a asp-page="./Delete" asp-route-id="@item.Id"><i class="fas fa-heart fa-md" style="color: red;"></i></a></div>
+                </div>
+                <a class="product-thumb" href="/Authorized/Customer/Find/Details/@item.Shop.Id"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
+                <div class="product-card-body">
+                    <br />
+                    <h5 class="product-title"><a asp-page="/Authorized/Customer/Find/Details" asp-route-id="@item.Shop.Id">@Html.DisplayFor(modelItem => item.Shop.Name)</a></h5>
+                    <span class="product-price">
+                        @Html.DisplayFor(modelItem => item.Shop.Street)<br>
+                        @Html.DisplayFor(modelItem => item.Shop.PostalCode), @Html.DisplayFor(modelItem => item.Shop.City)
+                    </span>
+                </div>
+                <div class="product-buttons-wrap">
+                    <div class="product-buttons">
+                        <div class="product-button"><a asp-page="/Authorized/Customer/Find/Details" asp-route-id="@item.Shop.Id"><i class="fas fa-info-circle fa-lg"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
+}

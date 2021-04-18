@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace FarmApp.Models
+namespace FarmApp.Models.Services
 {
     public static class SeedData
     {

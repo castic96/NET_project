@@ -469,3 +469,8 @@
         min-width: 250px !important;
     }
 }
+
+.fa-heart:hover {
+    color: red;
+    cursor: pointer;
+}
