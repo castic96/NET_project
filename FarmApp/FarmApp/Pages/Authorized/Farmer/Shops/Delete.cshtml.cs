@@ -66,7 +66,18 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                 return NotFound();
             }
 
+            var relatedReviews = await _context.Reviews
+                                    .Where(review => review.Shop == Shop)
+                                    .ToListAsync();
+
+            var relatedFavourites = await _context.Favourites
+                                        .Where(f => f.Shop == Shop)
+                                        .ToListAsync();
+
+            _context.Reviews.RemoveRange(relatedReviews);
+            _context.Favourites.RemoveRange(relatedFavourites);
             _context.Shops.Remove(Shop);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
