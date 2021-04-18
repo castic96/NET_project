@@ -3,14 +3,16 @@ using System;
 using FarmApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    partial class FarmAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210418091717_RemoveMovies")]
+    partial class RemoveMovies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
