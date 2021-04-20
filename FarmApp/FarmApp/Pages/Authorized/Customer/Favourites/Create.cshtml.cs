@@ -62,6 +62,7 @@ namespace FarmApp.Pages.Authorized.Customer.Favourites
 
             Favourite.Shop = Shop;
             Favourite.User = _context.Users.Find(_userManager.GetUserId(User));
+            Favourite.Id = 0;
 
             if (!ModelState.IsValid)
             {
