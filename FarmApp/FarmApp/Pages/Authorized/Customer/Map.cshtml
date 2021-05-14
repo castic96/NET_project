@@ -1,0 +1,68 @@
+﻿@page
+@model FarmApp.Pages.Authorized.Customer.Find.MapModel
+
+@{
+    ViewData["Title"] = "Find";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
+}
+
+@using Microsoft.AspNetCore.Identity
+@using FarmApp.Models;
+@using FarmApp.Models.Services;
+
+@inject UserManager<User> UserManager
+@inject IFavouriteService FavouriteService
+
+<h1>Nearby Shops</h1>
+<hr />
+
+<div class="row">
+    <div id="map"></div>
+
+
+    @*@foreach (var item in Model.Shop)
+        {
+
+            <div class="col-lg-4 col-sm-6 mb-30" style="margin-bottom: 20px;">
+                <div class="product-card mx-auto mb-3">
+                    <div class="product-head d-flex justify-content-between align-items-center">
+                        <div class="rating-stars">
+                            <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+                        </div>
+
+                        @if (FavouriteService.IsFavourite(item, UserManager.GetUserId(User)))
+                        {
+                            <div><a asp-page="/Authorized/Customer/Favourites/Delete" asp-route-id="@FavouriteService.FindFavouriteId(item, UserManager.GetUserId(User))"><i class="fas fa-heart fa-md" style="color: red;"></i></a></div>
+                        }
+                        else
+                        {
+                            <div><a asp-page="/Authorized/Customer/Favourites/Create" asp-route-id="@item.Id" style="color: grey;"><i class="fas fa-heart fa-md"></i></a></div>
+                        }
+
+                    </div>
+                    <a class="product-thumb" href="./Find/Details/@item.Id"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
+                    <div class="product-card-body">
+                        <br />
+                        <h5 class="product-title"><a asp-page="./Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+                        <span class="product-price">
+                            @Html.DisplayFor(modelItem => item.Street)<br>
+                            @Html.DisplayFor(modelItem => item.PostalCode), @Html.DisplayFor(modelItem => item.City)
+                        </span>
+                    </div>
+                    <div class="product-buttons-wrap">
+                        <div class="product-buttons">
+                            <div class="product-button"><a asp-page="./Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }*@
+</div>
+
+@section Scripts {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="~/js/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_KktQr3pdKvnjWBUatYZuf31ek4WaP8&callback=initMap&libraries=&v=weekly"
+            async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
+}
