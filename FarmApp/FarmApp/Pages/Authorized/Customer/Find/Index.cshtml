@@ -13,8 +13,23 @@
 @inject UserManager<User> UserManager
 @inject IFavouriteService FavouriteService
 
-<h1>Nearby Shops</h1>
+<h1>Find Shops</h1>
 <hr />
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Find by Name" class="btn btn-primary btn-find-shops" asp-page-handler="FindByName" />
+                <input type="submit" value="Find All" class="btn btn-primary btn-find-shops" asp-page-handler="FindAll"/>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="row">
     @foreach (var item in Model.Shop)

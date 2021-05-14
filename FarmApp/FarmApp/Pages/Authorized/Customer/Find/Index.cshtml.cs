@@ -22,6 +22,9 @@ namespace FarmApp.Pages.Authorized.Customer.Find
             _userManager = userManager;
         }
 
+        [BindProperty]
+        public string Text { get; set; }
+
         public IList<Shop> Shop { get;set; }
 
         public async Task OnGetAsync()
@@ -29,6 +32,34 @@ namespace FarmApp.Pages.Authorized.Customer.Find
             Shop = await _context.Shops
                                     .OrderByDescending(shop => shop.CreateDate)
                                     .ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostFindByNameAsync()
+        {
+            if (String.IsNullOrEmpty(Text))
+            {
+                Shop = new List<Shop>();
+
+                return Page();
+            }
+
+            Shop = await _context.Shops
+                        .Where(s => s.Name.ToUpper().Contains(Text.ToUpper()))
+                        .OrderByDescending(shop => shop.CreateDate)
+                        .ToListAsync();
+
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostFindAllAsync()
+        {
+            Shop = await _context.Shops
+                        .OrderByDescending(shop => shop.CreateDate)
+                        .ToListAsync();
+
+
+            return Page();
         }
     }
 }
