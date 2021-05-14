@@ -32,6 +32,7 @@ namespace FarmApp
         {
 
             services.AddScoped<IFavouriteService, FavouriteService>();
+            services.AddScoped<IShopService, ShopService>();
 
             services.AddAuthorization(options => 
             {
@@ -56,6 +57,8 @@ namespace FarmApp
                     options.Conventions.AuthorizeFolder("/Authorized/Farmer", "Farmers");
                     options.Conventions.AuthorizeFolder("/Authorized/Customer", "Customers");
                 });
+
+            services.AddControllers();
 
             services.AddDbContext<FarmAppContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("FarmAppContext")));
@@ -108,6 +111,8 @@ namespace FarmApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                //endpoints.MapControllerRoute("default", "api/{controller}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
