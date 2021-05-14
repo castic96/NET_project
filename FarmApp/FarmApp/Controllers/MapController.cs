@@ -22,9 +22,22 @@ namespace FarmApp.Controllers
         }
 
         [HttpGet]
-        public List<ShopDTO> GetShops()
+        public string GetShops()
         {
-            return _shopService.GetShopsJson();
+            string data = "showshops_callback({\"shops\":[";
+
+            foreach(var shop in _shopService.GetShopsJson())
+            {
+                data += shop.ToString();
+
+                data += ",";
+            }
+
+            data = data.Remove(data.Length - 1);
+
+            data += "]})";
+            
+            return data;
         }
 
     }

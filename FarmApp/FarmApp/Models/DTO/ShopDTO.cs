@@ -28,5 +28,17 @@ namespace FarmApp.Models.DTO
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
 
+        public override string ToString()
+        {
+            return "{\"id\": \"" + Id + "\"," +
+                "\"name\": \"" + Name + "\", " +
+                "\"description\": \"" + Description + "\", " +
+                "\"street\": \"" + Street + "\", " +
+                "\"city\": \"" + City + "\", " +
+                "\"postalcode\": \"" + PostalCode + "\", " +
+                "\"latitude\": \"" + Latitude + "\", " +
+                "\"longitude\": \"" + Longitude + "\"}";
+        }
+
     }
 }
