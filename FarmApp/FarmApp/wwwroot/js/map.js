@@ -82,10 +82,20 @@ const showshops_callback = function (results) {
         let content = document.createElement('text');
         content.textContent = shopStreet + ", " + shopPostalCode + " " + shopCity;
         infoWindowContent.appendChild(content);
+        infoWindowContent.appendChild(document.createElement('br'));
+        infoWindowContent.appendChild(document.createElement('br'));
+
+        let detailsButton = document.createElement("button");
+        detailsButton.textContent = "Details";
+        infoWindowContent.appendChild(detailsButton);
+
+        detailsButton.addEventListener("click", () => {
+            window.location.href = '/Authorized/Customer/Find/Details/' + shopId;
+        });
 
         let marker = new google.maps.Marker({
             position: latLng,
-            map: map,
+            map: map
         });
 
         marker.addListener("click", function () {
