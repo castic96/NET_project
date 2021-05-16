@@ -228,9 +228,7 @@ namespace FarmApp.Models.Services
                         Name = NameShop1,
                         Description = DescriptionShop1,
                         Email = EmailShop1,
-                        Street = StreetShop1,
-                        City = CityShop1,
-                        PostalCode = PostalCodeShop1,
+                        Address = StreetShop1 + " " + PostalCodeShop1 + ", " + CityShop1,
                         Latitude = LatitudeShop1,
                         Longitude = LongitudeShop1,
                         Owner = (context.Users.FirstOrDefault(user => user.UserName == Farmer1Email))
@@ -241,9 +239,7 @@ namespace FarmApp.Models.Services
                         Name = NameShop2,
                         Description = DescriptionShop2,
                         Email = EmailShop2,
-                        Street = StreetShop2,
-                        City = CityShop2,
-                        PostalCode = PostalCodeShop2,
+                        Address = StreetShop2 + " " + PostalCodeShop2 + ", " + CityShop2,
                         Latitude = LatitudeShop2,
                         Longitude = LongitudeShop2,
                         Owner = (context.Users.FirstOrDefault(user => user.UserName == Farmer1Email))
@@ -254,9 +250,7 @@ namespace FarmApp.Models.Services
                         Name = NameShop3,
                         Description = DescriptionShop3,
                         Email = EmailShop3,
-                        Street = StreetShop3,
-                        City = CityShop3,
-                        PostalCode = PostalCodeShop3,
+                        Address = StreetShop3 + " " + PostalCodeShop3 + ", " + CityShop3,
                         Latitude = LatitudeShop3,
                         Longitude = LongitudeShop3,
                         Owner = (context.Users.FirstOrDefault(user => user.UserName == Farmer2Email))

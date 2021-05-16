@@ -5,6 +5,14 @@
     width: 100%;
 }
 
+#map-farmer {
+    min-height: 500pt;
+    margin-left: 20pt;
+    margin-right: 20pt;
+    width: 100%;
+}
+
+
 .custom-map-control-button {
     background-color: #fff;
     border: 0;
@@ -20,4 +28,8 @@
 
 .custom-map-control-button:hover {
     background: #ebebeb;
+}
+
+#floating-panel {
+    margin-bottom: 10pt;
 }

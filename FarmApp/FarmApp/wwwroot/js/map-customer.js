@@ -69,9 +69,7 @@ const showshops_callback = function (results) {
 
         let shopId = currentShop.id;
         let shopName = currentShop.name;
-        let shopStreet = currentShop.street;
-        let shopCity = currentShop.city;
-        let shopPostalCode = currentShop.postalcode;
+        let shopAddress = currentShop.address;
 
         let infoWindowContent = document.createElement('div');
         let header = document.createElement('strong');
@@ -80,7 +78,7 @@ const showshops_callback = function (results) {
         infoWindowContent.appendChild(document.createElement('br'));
 
         let content = document.createElement('text');
-        content.textContent = shopStreet + ", " + shopPostalCode + " " + shopCity;
+        content.textContent = shopAddress;
         infoWindowContent.appendChild(content);
         infoWindowContent.appendChild(document.createElement('br'));
         infoWindowContent.appendChild(document.createElement('br'));

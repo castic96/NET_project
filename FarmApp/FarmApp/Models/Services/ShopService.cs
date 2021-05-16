@@ -29,9 +29,7 @@ namespace FarmApp.Models.Services
                     shop.Id,
                     shop.Name,
                     shop.Description,
-                    shop.Street,
-                    shop.City,
-                    shop.PostalCode,
+                    shop.Address,
                     shop.Latitude,
                     shop.Longitude
                 ));

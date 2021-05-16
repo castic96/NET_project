@@ -110,7 +110,7 @@ namespace FarmApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreateDate")
@@ -136,12 +136,6 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OwnerId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

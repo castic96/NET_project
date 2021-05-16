@@ -26,8 +26,7 @@
                     <br />
                     <h5 class="product-title"><a asp-page="/Authorized/Customer/Find/Details" asp-route-id="@item.Shop.Id">@Html.DisplayFor(modelItem => item.Shop.Name)</a></h5>
                     <span class="product-price">
-                        @Html.DisplayFor(modelItem => item.Shop.Street)<br>
-                        @Html.DisplayFor(modelItem => item.Shop.PostalCode), @Html.DisplayFor(modelItem => item.Shop.City)
+                        @Html.DisplayFor(modelItem => item.Shop.Address)<br>
                     </span>
                 </div>
                 <div class="product-buttons-wrap">

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    [Migration("20210418141754_InitialCreate")]
+    [Migration("20210516114426_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,7 +112,7 @@ namespace FarmApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
+                    b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreateDate")
@@ -138,12 +138,6 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("OwnerId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

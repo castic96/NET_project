@@ -25,16 +25,8 @@ namespace FarmApp.Models
         public string Email { get; set; }
 
         [DataType(DataType.Text)]
-        [Display(Name = "Street")]
-        public string Street { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "City")]
-        public string City { get; set; }
-
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "Postal Code")]
-        public int PostalCode { get; set; }
+        [Display(Name = "Address")]
+        public string Address { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(10, 7)")]
