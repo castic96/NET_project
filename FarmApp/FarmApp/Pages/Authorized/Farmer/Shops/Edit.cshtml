@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
 }
 
 <h1>Edit</h1>
@@ -21,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Shop.Description" class="control-label"></label>
-                <input asp-for="Shop.Description" class="form-control" />
+                <textarea asp-for="Shop.Description" class="form-control" style="height: 100pt;"></textarea>
                 <span asp-validation-for="Shop.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,18 +32,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Shop.Address" class="control-label"></label>
-                <input asp-for="Shop.Address" class="form-control" />
+                <textarea readonly id="address-input" asp-for="Shop.Address" class="address-input form-control"></textarea>
                 <span asp-validation-for="Shop.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Shop.Latitude" class="control-label"></label>
-                <input asp-for="Shop.Latitude" class="form-control" />
-                <span asp-validation-for="Shop.Latitude" class="text-danger"></span>
+                <input readonly asp-for="Shop.Latitude" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <label asp-for="Shop.Longitude" class="control-label"></label>
-                <input asp-for="Shop.Longitude" class="form-control" />
-                <span asp-validation-for="Shop.Longitude" class="text-danger"></span>
+                <input readonly asp-for="Shop.Longitude" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <input type="hidden" asp-for="Shop.CreateDate" class="form-control" />
@@ -51,13 +48,23 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        <div>
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    </div>
+    <div class="col-8 justify-content-center">
+        <div id="floating-panel" class="text-center">
+            <input id="address" type="text" value="Plzeň" />
+            <input id="submit" type="button" value="Find" />
+        </div>
+        <div id="map-farmer"></div>
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="~/js/map-farmer-edit.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_KktQr3pdKvnjWBUatYZuf31ek4WaP8&callback=initMap&libraries=&v=weekly"
+            async></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

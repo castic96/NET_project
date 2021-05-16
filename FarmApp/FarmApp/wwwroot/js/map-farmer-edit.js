@@ -10,6 +10,13 @@ function initMap() {
     document.getElementById("submit").addEventListener("click", () => {
         geocodeAddress(map);
     });
+
+    const addressValue = document.getElementById("address-input").value;
+
+    if (addressValue !== null && addressValue !== '') {
+        document.getElementById("address").value = addressValue;
+        document.getElementById("submit").click();
+    }
 }
 
 function geocodeAddress(resultsMap) {    
@@ -19,7 +26,6 @@ function geocodeAddress(resultsMap) {
     deleteMarkers();
 
     geocoder.geocode({ address: address }, (results, status) => {
-        console.log(results[0]);
         if (status === "OK") {
             resultsMap.setCenter(results[0].geometry.location);
             addMarker(results[0].geometry.location);
