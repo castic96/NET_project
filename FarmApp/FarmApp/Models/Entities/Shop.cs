@@ -29,11 +29,13 @@ namespace FarmApp.Models
         public string Address { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:0.0000000}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "decimal(10, 7)")]
         [Range(-90.0, 90.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
         public decimal Latitude { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:0.0000000}", ApplyFormatInEditMode = true)]
         [Column(TypeName = "decimal(10, 7)")]
         [Range(-180.0, 180.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
         public decimal Longitude { get; set; }
