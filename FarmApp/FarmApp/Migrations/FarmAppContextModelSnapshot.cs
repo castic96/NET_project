@@ -122,6 +122,9 @@ namespace FarmApp.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
+
                     b.Property<decimal>("Latitude")
                         .HasColumnType("decimal(10, 7)");
 

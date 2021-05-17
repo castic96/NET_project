@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FarmApp.Migrations
 {
     [DbContext(typeof(FarmAppContext))]
-    [Migration("20210516114426_InitialCreate")]
+    [Migration("20210517132610_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,6 +123,9 @@ namespace FarmApp.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("BLOB");
 
                     b.Property<decimal>("Latitude")
                         .HasColumnType("decimal(10, 7)");

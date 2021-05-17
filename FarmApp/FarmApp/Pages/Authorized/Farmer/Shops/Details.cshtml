@@ -29,7 +29,16 @@
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
-                <a class="product-thumb" href="#"><img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Product Thumbnail"></a>
+                <a class="product-thumb" href="#">
+                    @if (Model.Shop.Image != null)
+                    {
+                        <img src="data:image;base64,@System.Convert.ToBase64String(Model.Shop.Image)" style="width: 100%;" />
+                    }
+                    else
+                    {
+                        <img src="https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png" alt="Shop Thumbnail">
+                    }
+                </a>
                 <div class="product-card-body" style="text-align: justify;">
                     <br />
                     <p>

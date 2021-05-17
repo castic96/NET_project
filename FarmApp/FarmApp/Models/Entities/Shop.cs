@@ -40,6 +40,8 @@ namespace FarmApp.Models
         [Range(-180.0, 180.0, ErrorMessage = "The value {0} must be between {1} and {2}.")]
         public decimal Longitude { get; set; }
 
+        public byte[] Image { get; set; }
+
         //[Required]
         public User Owner { get; set; }
 

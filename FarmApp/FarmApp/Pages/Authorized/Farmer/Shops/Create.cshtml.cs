@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.ComponentModel.DataAnnotations;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
@@ -20,6 +24,15 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             _context = context;
             _userManager = userManager;
+        }
+
+        [BindProperty]
+        public BufferedSingleFileUploadDb Image { get; set; }
+
+        public class BufferedSingleFileUploadDb
+        {
+            [Display(Name = "Image")]
+            public IFormFile ImageFile { get; set; }
         }
 
         public IActionResult OnGet()
@@ -35,8 +48,21 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             // Fungujici alternativa:
             //Shop.Owner = _context.Users.FirstOrDefault(owner => owner.Id == _userManager.GetUserId(User));
-            Shop.Owner = _context.Users.Find(_userManager.GetUserId(User));
+            if (Image != null)
+            {
+                byte[] imageByte = ConvertImageToByteArray();
 
+                if (imageByte == null)
+                {
+                    return Page();
+                }
+                else
+                {
+                    Shop.Image = imageByte;
+                }
+            }
+
+            Shop.Owner = _context.Users.Find(_userManager.GetUserId(User));
 
             if (!ModelState.IsValid)
             {
@@ -47,6 +73,26 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        private byte[] ConvertImageToByteArray()
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                Image.ImageFile.CopyTo(memoryStream);
+
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    return memoryStream.ToArray();
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "The file is too large.");
+                }
+            }
+
+            return null;
         }
     }
 }

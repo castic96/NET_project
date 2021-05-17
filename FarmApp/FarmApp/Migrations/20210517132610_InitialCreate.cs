@@ -170,6 +170,7 @@ namespace FarmApp.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(10, 7)", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(10, 7)", nullable: false),
+                    Image = table.Column<byte[]>(type: "BLOB", nullable: true),
                     OwnerId = table.Column<string>(type: "TEXT", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
