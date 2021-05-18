@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label asp-for="Image.ImageFile" class="control-label"></label>
                 <br />
-                <input type="file" asp-for="Image.ImageFile" />
+                <input type="file" asp-for="Image.ImageFile" accept=".png,.jpg,.jpeg" />
                 <span asp-validation-for="Image.ImageFile" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Shop.Image" />

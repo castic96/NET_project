@@ -121,6 +121,14 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             using (var memoryStream = new MemoryStream())
             {
+                var fileType = Image.ImageFile.ContentType;
+
+                if (!(fileType.Equals("image/png") || fileType.Equals("image/jpg") || fileType.Equals("image/jpeg")))
+                {
+                    ModelState.AddModelError("File", "Incorrect format of uploaded file. Required formats are: png, jpg, jpeg.");
+                    return null;
+                }
+
                 Image.ImageFile.CopyTo(memoryStream);
 
                 // Upload the file if less than 2 MB
@@ -130,7 +138,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "The file is too large.");
+                    ModelState.AddModelError("File", "The Shop Thumbnail is too large.");
                 }
             }
 
