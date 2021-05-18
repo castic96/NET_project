@@ -23,6 +23,7 @@
 
     .product-card .product-thumb {
         display: block;
+        height: 270.3px;
     }
 
         .product-card .product-thumb > img {
