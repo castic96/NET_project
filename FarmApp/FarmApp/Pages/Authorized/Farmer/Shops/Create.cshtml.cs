@@ -31,7 +31,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
 
         public class BufferedSingleFileUploadDb
         {
-            [Display(Name = "Image")]
+            [Display(Name = "Shop Thumbnail")]
             public IFormFile ImageFile { get; set; }
         }
 
@@ -48,7 +48,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             // Fungujici alternativa:
             //Shop.Owner = _context.Users.FirstOrDefault(owner => owner.Id == _userManager.GetUserId(User));
-            if (Image != null)
+            if (Image.ImageFile != null)
             {
                 byte[] imageByte = ConvertImageToByteArray();
 

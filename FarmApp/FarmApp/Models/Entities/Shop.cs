@@ -20,10 +20,12 @@ namespace FarmApp.Models
         [DataType(DataType.Text)]
         public string Description { get; set; }
 
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Address")]
         public string Address { get; set; }
