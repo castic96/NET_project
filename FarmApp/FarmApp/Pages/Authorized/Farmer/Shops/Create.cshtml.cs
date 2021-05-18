@@ -88,7 +88,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "The file is too large.");
+                    ModelState.AddModelError("File", "The Shop Thumbnail is too large.");
                 }
             }
 
