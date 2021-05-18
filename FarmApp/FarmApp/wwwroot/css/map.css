@@ -12,6 +12,11 @@
     width: 100%;
 }
 
+#map-details {
+    width: 100%;
+    height: 270.3px;
+}
+
 
 .custom-map-control-button {
     background-color: #fff;

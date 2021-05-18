@@ -38,7 +38,7 @@
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
-                <div class="product-thumb" >
+                <div class="product-thumb">
                     @if (Model.Shop.Image != null)
                     {
                         <img src="data:image;base64,@System.Convert.ToBase64String(Model.Shop.Image)" style="width: 100%;" />
@@ -58,7 +58,11 @@
         </div>
         <div class=col-lg-4 col-md-6 col-sm-12 mb-30">
             <div class="product-card mx-auto mb-3">
-                <a class="product-thumb" href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/World_Map_Grayscale.png" alt="Product Thumbnail"></a>
+                <div class="product-thumb">
+                    <div id="map-details"></div>
+                    <input type="hidden" id="latitude" value="@Model.Shop.Latitude" />
+                    <input type="hidden" id="longitude" value="@Model.Shop.Longitude" />
+                </div>
                 <div class="product-card-body">
                     <br />
                     <span class="product-price" style="text-align: justify;">
@@ -105,5 +109,9 @@
 </div>
 
 @section Scripts {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="~/js/map-details.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ_KktQr3pdKvnjWBUatYZuf31ek4WaP8&callback=initMap&libraries=&v=weekly"
+            async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.10.0/feather.js"></script>
 }
