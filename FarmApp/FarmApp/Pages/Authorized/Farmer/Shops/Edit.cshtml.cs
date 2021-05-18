@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
@@ -21,6 +24,15 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         {
             _context = context;
             _userManager = userManager;
+        }
+
+        [BindProperty]
+        public BufferedSingleFileUploadDb Image { get; set; }
+
+        public class BufferedSingleFileUploadDb
+        {
+            [Display(Name = "Change Shop Thumbnail")]
+            public IFormFile ImageFile { get; set; }
         }
 
         [BindProperty]
@@ -52,6 +64,20 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (Image.ImageFile != null)
+            {
+                byte[] imageByte = ConvertImageToByteArray();
+
+                if (imageByte == null)
+                {
+                    return Page();
+                }
+                else
+                {
+                    Shop.Image = imageByte;
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -89,6 +115,26 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             var loggedUserShops = loggedUser.Shops;
             if (loggedUserShops != null && loggedUserShops.Contains(Shop)) return true;
             return false;
+        }
+
+        private byte[] ConvertImageToByteArray()
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                Image.ImageFile.CopyTo(memoryStream);
+
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    return memoryStream.ToArray();
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "The file is too large.");
+                }
+            }
+
+            return null;
         }
     }
 }
