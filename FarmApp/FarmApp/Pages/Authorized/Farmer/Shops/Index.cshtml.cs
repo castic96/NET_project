@@ -24,12 +24,42 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
 
         public IList<Shop> Shop { get;set; }
 
+        public Dictionary<int, int> RatingAverages { get; set; }
+
         public async Task OnGetAsync()
         {
             Shop = await _context.Shops
                                     .Where(shop => shop.Owner.Id == _userManager.GetUserId(User))
+                                    .Include(shop => shop.Reviews)
                                     .OrderByDescending(shop => shop.CreateDate)
                                     .ToListAsync();
+
+            calculateRatingAverages();
+
+        }
+
+        private void calculateRatingAverages()
+        {
+            RatingAverages = new Dictionary<int, int>();
+
+            foreach (var currentShop in Shop)
+            {
+                if (currentShop.Reviews == null || currentShop.Reviews.Count <= 0)
+                {
+                    RatingAverages.Add(currentShop.Id, 0);
+                }
+                else
+                {
+                    int sum = 0;
+
+                    foreach (var currentReview in currentShop.Reviews)
+                    {
+                        sum += currentReview.Rating;
+                    }
+
+                    RatingAverages.Add(currentShop.Id, (int)((sum / (currentShop.Reviews.Count * 5.0)) * 100));
+                }
+            }
         }
     }
 }

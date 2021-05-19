@@ -25,6 +25,8 @@ namespace FarmApp.Pages.Authorized.Customer.Find
         public Shop Shop { get; set; }
         public IList<Review> Review { get; set; }
 
+        public int RatingAverage { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -44,6 +46,8 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                     .OrderByDescending(review => review.CreateDate)
                     .Take(3)
                     .ToListAsync();
+
+            calculateRatingAverages();
 
             if (Review.Any())
             {
@@ -66,6 +70,23 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                     currentComment = currentComment.Substring(0, maxLength - 3) + "...";
                     currentReview.Comment = currentComment;
                 }
+            }
+        }
+
+        private void calculateRatingAverages()
+        {
+            RatingAverage = 0;
+
+            if (Shop.Reviews != null && Shop.Reviews.Count > 0)
+            {
+                int sum = 0;
+
+                foreach (var currentReview in Shop.Reviews)
+                {
+                    sum += currentReview.Rating;
+                }
+
+                RatingAverage = (int)((sum / (Shop.Reviews.Count * 5.0)) * 100);
             }
         }
     }

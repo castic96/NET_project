@@ -22,6 +22,8 @@ namespace FarmApp.Pages.Authorized.Farmer
         public IList<Review> Reviews { get;set; }
         public Shop Shop { get; set; }
 
+        public int RatingAverage { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -42,7 +44,26 @@ namespace FarmApp.Pages.Authorized.Farmer
                                 .OrderByDescending(review => review.CreateDate)
                                 .ToListAsync();
 
+            calculateRatingAverages();
+
             return Page();
+        }
+
+        private void calculateRatingAverages()
+        {
+            RatingAverage = 0;
+
+            if (Shop.Reviews != null && Shop.Reviews.Count > 0)
+            {
+                int sum = 0;
+
+                foreach (var currentReview in Shop.Reviews)
+                {
+                    sum += currentReview.Rating;
+                }
+
+                RatingAverage = (int)((sum / (Shop.Reviews.Count * 5.0)) * 100);
+            }
         }
     }
 }

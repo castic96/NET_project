@@ -18,8 +18,23 @@
         <div class="col-lg-4 col-sm-6 mb-30" style="margin-bottom: 20px;">
             <div class="product-card mx-auto mb-3">
                 <div class="product-head d-flex justify-content-between align-items-center">
-                    <div class="rating-stars">
-                        <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+                    <div class="score">
+                        <a class="score-wrap" href="/Authorized/Farmer/Reviews/@item.Id">
+                            <span class="stars-active" style="width: @Model.RatingAverages.GetValueOrDefault(@item.Id)%;">
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            </span>
+                            <span class="stars-inactive">
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                                <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <a class="product-thumb" href="./Shops/Details/@item.Id">

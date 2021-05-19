@@ -19,15 +19,30 @@
 <div>
     <h4>@Html.DisplayFor(model => model.Shop.Name)&nbsp;&nbsp;</h4>
     <div class="product-head d-flex justify-content-between align-items-center">
-        <div class="rating-stars">
-            <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+        <div class="score">
+            <div class="score-wrap">
+                <span class="stars-active" style="width: @Model.RatingAverage%;">
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                </span>
+                <span class="stars-inactive">
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                </span>
+            </div>
         </div>
     </div>
     <hr />
 
     @foreach (var item in Model.Reviews)
     {
-        <div class="row  d-flex align-items-center">
+        <div class="row d-flex align-items-center">
             <div class="col-lg-4 col-md-6 col-sm-8 text-center">
                 <div class="row">
                     <div class="col">
@@ -36,7 +51,17 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        @Html.DisplayFor(modelItem => item.Rating) stars
+                        <div class="score">
+                            <div class="score-wrap">
+                                <span class="stars-active" style="width: @(Math.Round((item.Rating / 5.0) * 100))%;">
+                                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

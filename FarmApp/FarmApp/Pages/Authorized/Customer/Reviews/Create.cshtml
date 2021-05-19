@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Review.Rating" class="control-label"></label>
-                <input asp-for="Review.Rating" class="form-control" />
+                <input type="number" min="1" max="5" asp-for="Review.Rating" class="form-control" />
                 <span asp-validation-for="Review.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">

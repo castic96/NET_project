@@ -17,11 +17,25 @@
         &nbsp;<a asp-page="./Delete" asp-route-id="@Model.Shop.Id"><i class="far fa-trash-alt fa-sm"></i></a>
     </h4>
     <div class="product-head d-flex justify-content-between align-items-center">
-        <div class="rating-stars">
-            <i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star active"></i><i class="fa fa-star"></i>
+        <div class="score">
+            <a class="score-wrap" href="/Authorized/Farmer/Reviews/@Model.Shop.Id">
+                <span class="stars-active" style="width: @Model.RatingAverage%;">
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                </span>
+                <span class="stars-inactive">
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                </span>
+            </a>
         </div>
     </div>
-    <br />
     <small><i>Created: @Html.DisplayFor(model => model.Shop.CreateDate)</i></small><br />
     <small><i>Last Modified: @Html.DisplayFor(model => model.Shop.ModifiedDate)</i></small>
     <br />
