@@ -1,5 +1,5 @@
 ﻿@page
-@model FarmApp.Pages.Authorized.Customer.Messages.ReceivedModel
+@model FarmApp.Pages.Authorized.Farmer.Messages.ReceivedModel
 
 @{
     ViewData["Title"] = "Received";
@@ -10,7 +10,7 @@
 
 <h1>Messages</h1>
 <h4>Received</h4>
-<a href="/Authorized/Customer/Messages"><i class="fas fa-caret-square-left fa-2x"></i></a>
+<a href="/Authorized/Farmer/Messages"><i class="fas fa-caret-square-left fa-2x"></i></a>
 <hr />
 
 <div>
@@ -20,7 +20,12 @@
             <div class="col-lg-4 col-md-6 col-sm-8 text-center">
                 <div class="row">
                     <div class="col">
-                        <b>@Html.DisplayFor(modelItem => item.Shop.Name)</b>
+                        <b>From: @Html.DisplayFor(modelItem => item.User.UserName)</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        To: @Html.DisplayFor(modelItem => item.Shop.Name)
                     </div>
                 </div>
                 <div class="row">
@@ -32,7 +37,7 @@
                     <div class="col">
                         <div class="product-buttons-wrap">
                             <div class="product-buttons">
-                                <a asp-page="/Authorized/Customer/Messages/Create" asp-route-id="@item.Shop.Id"><i class="fa fa-reply fa-lg text-black-50"></i></a>
+                                <a asp-page="/Authorized/Farmer/Messages/Create" asp-route-id1="@item.Shop.Id" asp-route-id2="@item.User.Id"><i class="fa fa-reply fa-lg text-black-50"></i></a>
                             </div>
                         </div>
                     </div>
