@@ -1,0 +1,18 @@
+﻿@page
+@model FarmApp.Pages.Authorized.Customer.Messages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
+}
+
+<h1>Messages</h1>
+<a href="/Authorized/Customer/Find"><i class="fas fa-caret-square-left fa-2x"></i></a>
+<hr />
+
+<div class="row text-center justify-content-center">
+    <div class="col-md-6r">
+        <a class="btn btn-primary btn-navigation" asp-page="./Received">Received</a>
+        <a class="btn btn-primary btn-navigation" asp-page="./Sent">Sent</a>
+    </div>
+</div>

@@ -14,7 +14,7 @@ namespace FarmApp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.4");
+                .HasAnnotation("ProductVersion", "5.0.6");
 
             modelBuilder.Entity("FarmApp.Models.Favourite", b =>
                 {
@@ -49,8 +49,15 @@ namespace FarmApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("FromUser")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("TEXT");
@@ -111,6 +118,7 @@ namespace FarmApp.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreateDate")
@@ -120,6 +128,7 @@ namespace FarmApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Image")

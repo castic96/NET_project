@@ -20,6 +20,7 @@
 <div>
     <h4>
         @Html.DisplayFor(model => model.Shop.Name)&nbsp;
+
         @if (FavouriteService.IsFavourite(Model.Shop, UserManager.GetUserId(User)))
         {
             <a asp-page="/Authorized/Customer/Favourites/Delete" asp-route-id="@FavouriteService.FindFavouriteId(Model.Shop, UserManager.GetUserId(User))"><i class="fas fa-heart fa-sm" style="color: red;"></i></a>
@@ -28,6 +29,9 @@
         {
             <a asp-page="/Authorized/Customer/Favourites/Create" asp-route-id="@Model.Shop.Id" style="color: grey;"><i class="fas fa-heart fa-sm"></i></a>
         }
+        &nbsp;
+        <a asp-page="/Authorized/Customer/Messages/Create" asp-route-id="@Model.Shop.Id"><i class="fa fa-paper-plane fa-sm"></i></a>
+
     </h4>
     <div class="product-head d-flex justify-content-between align-items-center">
         <div class="rating-stars">

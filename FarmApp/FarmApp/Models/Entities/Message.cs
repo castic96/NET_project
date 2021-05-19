@@ -13,11 +13,15 @@ namespace FarmApp.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public User User { get; set; }
 
-        [Required]
         public Shop Shop { get; set; }
+
+        [Required]
+        public bool FromUser { get; set; }
+
+        [Required]
+        public string Content { get; set; }
 
     }
 }
