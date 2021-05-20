@@ -4,27 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using FarmApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Logging;
 namespace FarmApp.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+    [Authorize]
+    public class IndexModel : PageModel
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly FarmApp.Data.FarmAppContext _context;
+        private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            FarmApp.Data.FarmAppContext context)
+            ILogger<IndexModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _context = context;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -36,34 +37,20 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
-            [DataType(DataType.EmailAddress)]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+            [DataType(DataType.Password)]
+            [Display(Name = "Current password")]
+            public string OldPassword { get; set; }
 
             [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "New password")]
+            public string NewPassword { get; set; }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
-
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Street")]
-            public string Street { get; set; }
-
-            [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "City")]
-            public string City { get; set; }
-
-            [Required]
-            [DataType(DataType.PostalCode)]
-            [Display(Name = "Postal Code")]
-            public int PostalCode { get; set; }
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm new password")]
+            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -74,48 +61,42 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var userEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(_userManager.GetUserId(User)));
-
-            Input = new InputModel();
-
-            Input.Email = userEntity.Email;
-            Input.FirstName = userEntity.FirstName;
-            Input.LastName = userEntity.LastName;
-            Input.Street = userEntity.Street;
-            Input.City = userEntity.City;
-            Input.PostalCode = userEntity.PostalCode;
+            var hasPassword = await _userManager.HasPasswordAsync(user);
+            if (!hasPassword)
+            {
+                return RedirectToPage("./SetPassword");
+            }
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
-            
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var userEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(_userManager.GetUserId(User)));
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
 
-            userEntity.FirstName = Input.FirstName;
-            userEntity.LastName = Input.LastName;
-            userEntity.Street = Input.Street;
-            userEntity.City = Input.City;
-            userEntity.PostalCode = Input.PostalCode;
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
+            if (!changePasswordResult.Succeeded)
+            {
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return Page();
+            }
 
-            _context.Users.Update(userEntity);
-
-            await _context.SaveChangesAsync();
             await _signInManager.RefreshSignInAsync(user);
+            _logger.LogInformation("User changed their password successfully.");
+            StatusMessage = "Your password has been changed.";
 
-            StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }
