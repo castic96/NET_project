@@ -27,7 +27,6 @@ namespace FarmApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -63,21 +62,24 @@ namespace FarmApp
             services.AddDbContext<FarmAppContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("FarmAppContext")));
 
-            services.AddDefaultIdentity<User>(options => {
+            services.AddIdentity<User, IdentityRole>(options => {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<FarmAppContext>();
-
-            //services.AddIdentity<User, IdentityRole>()
-            //    .AddEntityFrameworkStores<FarmAppContext>()
-            //    .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<FarmAppContext>()
+                .AddDefaultTokenProviders();
+            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -87,7 +89,6 @@ namespace FarmApp
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -111,7 +112,6 @@ namespace FarmApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                //endpoints.MapControllerRoute("default", "api/{controller}/{id?}");
                 endpoints.MapControllers();
             });
         }
