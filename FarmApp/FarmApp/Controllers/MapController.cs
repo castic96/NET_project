@@ -1,26 +1,35 @@
-﻿using FarmApp.Models.DTO;
-using FarmApp.Models.Services;
+﻿using FarmApp.Models.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FarmApp.Controllers
 {
+    /// <summary>
+    /// Controller for map.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Policy = "Customers")]
     public class MapController : ControllerBase
     {
+        /// <summary>
+        /// Shop service.
+        /// </summary>
         private readonly IShopService _shopService;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="shopService">Shop service.</param>
         public MapController(IShopService shopService)
         {
             _shopService = shopService;
         }
 
+        /// <summary>
+        /// Gets information about shops.
+        /// </summary>
+        /// <returns>Information about shops in JSON format.</returns>
         [HttpGet]
         public string GetShops()
         {

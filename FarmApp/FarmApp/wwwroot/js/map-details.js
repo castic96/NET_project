@@ -1,6 +1,12 @@
-﻿let map;
+﻿/** Map. */
+let map;
+
+/** List of markers. */
 let markers = [];
 
+/**
+ *  Initializes the map.
+ */
 function initMap() {
     let latitude = Number(document.getElementById('latitude').value);
     let longitude = Number(document.getElementById('longitude').value);

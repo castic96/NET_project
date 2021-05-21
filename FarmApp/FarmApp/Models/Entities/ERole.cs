@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FarmApp.Models
+﻿namespace FarmApp.Models
 {
+    /// <summary>
+    /// Roles enum.
+    /// </summary>
     public static class ERole
     {
+        /// <summary>
+        /// Role Customer.
+        /// </summary>
         public const string CUSTOMER = "Customer";
+
+        /// <summary>
+        /// Role farmer.
+        /// </summary>
         public const string FARMER = "Farmer";
 
     }

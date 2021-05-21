@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FarmApp.Models
 {
+    /// <summary>
+    /// Model for favourite.
+    /// </summary>
     public class Favourite : BaseEntity
     {
-
+        /// <summary>
+        /// Identificator.
+        /// </summary>
         [Key]
         public int Id { get; set; }
 
-        //[Required]
+        /// <summary>
+        /// User.
+        /// </summary>
         public User User { get; set; }
 
-        //[Required]
+        /// <summary>
+        /// Shop.
+        /// </summary>
         public Shop Shop { get; set; }
-
     }
 }

@@ -1,4 +1,7 @@
-﻿$(function () {
+﻿/**
+ *  Helping function for switching tabs on registration page. 
+ */
+$(function () {
     var current = this.location.pathname;
     $('.nav-tabs li a').each(function () {
         var $this = $(this);

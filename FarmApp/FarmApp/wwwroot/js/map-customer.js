@@ -1,9 +1,12 @@
-﻿// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-let map, infoWindowMyLocation;
+﻿/** Map. */
+let map;
 
+/** Info window with text: My Location. */
+let infoWindowMyLocation;
+
+/**
+ *  Initializes the map.
+ */
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 49.739, lng: 13.372 },
@@ -23,6 +26,7 @@ function initMap() {
     locationButton.classList.add("custom-map-control-button");
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
     locationButton.addEventListener("click", () => {
+
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -49,6 +53,9 @@ function initMap() {
     locationButton.click();
 }
 
+/**
+ *  Handles errors.
+ */
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
@@ -59,6 +66,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
 }
 
+/**
+ *  Processes information about shops and sets markers to the map.
+ */
 const showshops_callback = function (results) {
     let infoWindowDescription = new google.maps.InfoWindow();
 

@@ -1,27 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FarmApp.Models
 {
+    /// <summary>
+    /// Model for review.
+    /// </summary>
     public class Review : BaseEntity
     {
+        /// <summary>
+        /// Identificator.
+        /// </summary>
         [Key]
         public int Id { get; set; }
 
-        //[Required]
+        /// <summary>
+        /// Author of review.
+        /// </summary>
         public User Author { get; set; }
 
-        //[Required]
+        /// <summary>
+        /// To shop.
+        /// </summary>
         public Shop Shop { get; set; }
 
+        /// <summary>
+        /// Rating.
+        /// </summary>
         [Required]
         [Range(1, 5)]
         public int Rating { get; set; }
 
+        /// <summary>
+        /// Comment.
+        /// </summary>
         [DataType(DataType.Text)]
         public string Comment { get; set; }
     }

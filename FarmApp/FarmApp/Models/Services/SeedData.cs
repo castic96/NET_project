@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Models.Services
 {
+    /// <summary>
+    /// Seed data class creates initialize data.
+    /// </summary>
     public static class SeedData
     {
-
-        // --- Init data ----
-        // ------------------
-        //
         // --- Users ----
 
         // Customer1
@@ -41,7 +40,10 @@ namespace FarmApp.Models.Services
         private const string Farmer2City = "Praha";
         private const int Farmer2PostalCode = 23080;
 
-
+        /// <summary>
+        /// Runs all submethods for data initialization.
+        /// </summary>
+        /// <param name="serviceProvider">Service provider.</param>
         public static void Initialize(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -50,6 +52,10 @@ namespace FarmApp.Models.Services
             InitializeUsers(serviceProvider);
         }
 
+        /// <summary>
+        /// Initializes roles, if do not exist.
+        /// </summary>
+        /// <param name="serviceProvider">Service provider.</param>
         public static void InitializeRoles(IServiceProvider serviceProvider)
         {
             using (var context = new FarmAppContext(
@@ -77,6 +83,10 @@ namespace FarmApp.Models.Services
             }
         }
 
+        /// <summary>
+        /// Initializes users, if do not exist.
+        /// </summary>
+        /// <param name="serviceProvider">Service provider.</param>
         public static void InitializeUsers(IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
