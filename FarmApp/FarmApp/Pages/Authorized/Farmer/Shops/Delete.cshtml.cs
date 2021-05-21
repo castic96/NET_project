@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,20 +9,43 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
+    /// <summary>
+    /// PageModel for shop delete page.
+    /// </summary>
     public class DeleteModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public DeleteModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public DeleteModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Shop to delete.
+        /// </summary>
         [BindProperty]
         public Shop Shop { get; set; }
 
+        /// <summary>
+        /// Shows deletion page for current shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -47,6 +68,11 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return Page();
         }
 
+        /// <summary>
+        /// Processes form for deleting shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
@@ -83,6 +109,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return RedirectToPage("./Index");
         }
 
+        /// <summary>
+        /// Check if the current user is owner of current shop.
+        /// </summary>
+        /// <returns>true if current user is owner of current shop, false otherwise.</returns>
         private bool IsOwnerOfCurrentShop()
         {
             var loggedUser = _context.Users.Find(_userManager.GetUserId(User));

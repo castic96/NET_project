@@ -1,53 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using System.ComponentModel.DataAnnotations;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
+    /// <summary>
+    /// PageModel for shop create page.
+    /// </summary>
     public class CreateModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Databse context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public CreateModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public CreateModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Uploaded image of shop.
+        /// </summary>
         [BindProperty]
         public BufferedSingleFileUploadDb Image { get; set; }
 
+        /// <summary>
+        /// Helping class for upload the image of shop.
+        /// </summary>
         public class BufferedSingleFileUploadDb
         {
             [Display(Name = "Shop Thumbnail")]
             public IFormFile ImageFile { get; set; }
         }
 
+        /// <summary>
+        /// Shows create page for shop.
+        /// </summary>
+        /// <returns>Page.</returns>
         public IActionResult OnGet()
         {
             return Page();
         }
 
+        /// <summary>
+        /// Current shop.
+        /// </summary>
         [BindProperty]
         public Shop Shop { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        /// <summary>
+        /// Processes form for creating shop.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
-            // Fungujici alternativa:
-            //Shop.Owner = _context.Users.FirstOrDefault(owner => owner.Id == _userManager.GetUserId(User));
             if (Image.ImageFile != null)
             {
                 byte[] imageByte = ConvertImageToByteArray();
@@ -75,6 +99,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return RedirectToPage("./Index");
         }
 
+        /// <summary>
+        /// Converts image to array of bytes.
+        /// </summary>
+        /// <returns>Array of bytes representing the image.</returns>
         private byte[] ConvertImageToByteArray()
         {
             using (var memoryStream = new MemoryStream())

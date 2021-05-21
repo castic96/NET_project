@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
@@ -15,29 +12,58 @@ using System.IO;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
+    /// <summary>
+    /// PageModel for shop edit page.
+    /// </summary>
     public class EditModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public EditModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public EditModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Uploaded image of shop.
+        /// </summary>
         [BindProperty]
         public BufferedSingleFileUploadDb Image { get; set; }
 
+        /// <summary>
+        /// Helping class for upload the image of shop.
+        /// </summary>
         public class BufferedSingleFileUploadDb
         {
             [Display(Name = "Change Shop Thumbnail")]
             public IFormFile ImageFile { get; set; }
         }
 
+        /// <summary>
+        /// Current shop.
+        /// </summary>
         [BindProperty]
         public Shop Shop { get; set; }
 
+        /// <summary>
+        /// Shows the shop settings with fields for edit.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -60,8 +86,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Processes form for editing shop.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (Image.ImageFile != null)
@@ -104,11 +132,20 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return RedirectToPage("./Index");
         }
 
+        /// <summary>
+        /// Checks existence of shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>true if shop exists, false otherwise.</returns>
         private bool ShopExists(int id)
         {
             return _context.Shops.Any(e => e.Id == id);
         }
 
+        /// <summary>
+        /// Check if the current user is owner of current shop.
+        /// </summary>
+        /// <returns>true if current user is owner of current shop, false otherwise.</returns>
         private bool IsOwnerOfCurrentShop()
         {
             var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
@@ -117,6 +154,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return false;
         }
 
+        /// <summary>
+        /// Converts image to array of bytes.
+        /// </summary>
+        /// <returns>Array of bytes representing the image.</returns>
         private byte[] ConvertImageToByteArray()
         {
             using (var memoryStream = new MemoryStream())

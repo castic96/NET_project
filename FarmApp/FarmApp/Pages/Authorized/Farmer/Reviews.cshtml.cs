@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,20 +9,45 @@ using FarmApp.Models;
 
 namespace FarmApp.Pages.Authorized.Farmer
 {
+    /// <summary>
+    /// PageModel for farmer reviews. Farmers can only display reviews for their shops.
+    /// </summary>
     public class ReviewsModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
 
-        public ReviewsModel(FarmApp.Data.FarmAppContext context)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        public ReviewsModel(FarmAppContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// List of reviews for current shop.
+        /// </summary>
         public IList<Review> Reviews { get;set; }
+
+        /// <summary>
+        /// Current shop.
+        /// </summary>
         public Shop Shop { get; set; }
 
+        /// <summary>
+        /// Average rating for current shop.
+        /// </summary>
         public int RatingAverage { get; set; }
 
+        /// <summary>
+        /// Shows reviews for current shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -44,12 +68,15 @@ namespace FarmApp.Pages.Authorized.Farmer
                                 .OrderByDescending(review => review.CreateDate)
                                 .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverage();
 
             return Page();
         }
 
-        private void calculateRatingAverages()
+        /// <summary>
+        /// This method calculates average rating for current shop.
+        /// </summary>
+        private void CalculateRatingAverage()
         {
             RatingAverage = 0;
 

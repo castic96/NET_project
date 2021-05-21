@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,22 +10,52 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Farmer.Shops
 {
+    /// <summary>
+    /// PageModel for shop details.
+    /// </summary>
     public class DetailsModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public DetailsModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public DetailsModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Current shop.
+        /// </summary>
         public Shop Shop { get; set; }
+
+        /// <summary>
+        /// List of reviews for current shop.
+        /// </summary>
         public IList<Review> Reviews { get; set; }
 
+        /// <summary>
+        /// Average rating for current shop.
+        /// </summary>
         public int RatingAverage { get; set; }
 
+        /// <summary>
+        /// Shows detail of current shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -52,7 +81,7 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
                     .Take(3)
                     .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
             if (Reviews.Any())
             {
@@ -62,6 +91,9 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return Page();
         }
 
+        /// <summary>
+        /// Cuts review text to maximum of 100 chars.
+        /// </summary>
         private void CutReviewText()
         {
             int maxLength = 100;
@@ -78,6 +110,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             }
         }
 
+        /// <summary>
+        /// Check if the current user is owner of current shop.
+        /// </summary>
+        /// <returns>true if current user is owner of current shop, false otherwise.</returns>
         private bool IsOwnerOfCurrentShop()
         {
             var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
@@ -86,7 +122,10 @@ namespace FarmApp.Pages.Authorized.Farmer.Shops
             return false;
         }
 
-        private void calculateRatingAverages()
+        /// <summary>
+        /// Calculates average ratings for current list of shops.
+        /// </summary>
+        private void CalculateRatingAverages()
         {
             RatingAverage = 0;
 

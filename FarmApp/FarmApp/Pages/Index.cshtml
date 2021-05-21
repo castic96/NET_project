@@ -19,20 +19,19 @@
     <div class="col-md-8">
         @if (SignInManager.IsSignedIn(User))
         {
-        <form id="logoutForm" class="form-inline text-center justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+            <form id="logoutForm" class="form-inline text-center justify-content-center" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
 
-            @if (User.IsInRole("Customer"))
-            {
-                <a class="btn btn-primary btn-navigation" asp-page="/Authorized/Customer/Index">Go to the App</a>
-            }
-            else if (User.IsInRole("Farmer"))
-            {
-                <a class="btn btn-primary btn-navigation" asp-page="/Authorized/Farmer/Index">Go to the App</a>
-            }
+                @if (User.IsInRole("Customer"))
+                {
+                    <a class="btn btn-primary btn-navigation" asp-page="/Authorized/Customer/Index">Go to the App</a>
+                }
+                else if (User.IsInRole("Farmer"))
+                {
+                    <a class="btn btn-primary btn-navigation" asp-page="/Authorized/Farmer/Index">Go to the App</a>
+                }
 
-            <button id="logout" type="submit" class="btn btn-primary btn-navigation">Logout</button>
-        </form>
-
+                <button id="logout" type="submit" class="btn btn-primary btn-navigation">Logout</button>
+            </form>
         }
         else
         {
