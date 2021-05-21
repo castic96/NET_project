@@ -1,18 +1,21 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FarmApp.Models.Services;
 
 namespace FarmApp
 {
+    /// <summary>
+    /// Main class of the application.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method of the program.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -35,6 +38,11 @@ namespace FarmApp
             host.Run();
         }
 
+        /// <summary>
+        /// Initialize startup project.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
+        /// <returns>IHostBuilder.</returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

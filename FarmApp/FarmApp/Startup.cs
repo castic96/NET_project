@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using Microsoft.AspNetCore.Identity;
@@ -18,15 +14,29 @@ using FarmApp.Models.Services;
 
 namespace FarmApp
 {
+    /// <summary>
+    /// Main class for user interface.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="configuration">Program configuration.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration service.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Method for configuration services.
+        /// </summary>
+        /// <param name="services">Services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -79,7 +89,12 @@ namespace FarmApp
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
         }
-
+        
+        /// <summary>
+        /// Method for configuration application environment.
+        /// </summary>
+        /// <param name="app">Application builder.</param>
+        /// <param name="env">Application Environment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
