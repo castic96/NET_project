@@ -3,11 +3,12 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Edit Review</h1>
 
-<h4>Review</h4>
+<h4>@Model.Review.Shop.Name</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,12 +17,12 @@
             <input type="hidden" asp-for="Review.Id" />
             <div class="form-group">
                 <label asp-for="Review.Rating" class="control-label"></label>
-                <input asp-for="Review.Rating" class="form-control" />
+                <input type="number" min="1" max="5" asp-for="Review.Rating" class="form-control" />
                 <span asp-validation-for="Review.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Review.Comment" class="control-label"></label>
-                <input asp-for="Review.Comment" class="form-control" />
+                <textarea asp-for="Review.Comment" class="form-control" style="height: 100pt;"></textarea>
                 <span asp-validation-for="Review.Comment" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +36,7 @@
 </div>
 
 <div>
-    <a href="/Authorized/Customer/Reviews/@Model.Review.Shop.Id">Back to List</a>
+    <a href="/Authorized/Customer/Reviews/@Model.Review.Shop.Id">Back to Reviews</a>
 </div>
 
 @section Scripts {

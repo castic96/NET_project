@@ -29,7 +29,7 @@ namespace FarmApp.Pages.Authorized.Customer.Favourites
                 return NotFound();
             }
 
-            Favourite = await _context.Favourites.FirstOrDefaultAsync(m => m.Id == id);
+            Favourite = await _context.Favourites.Include(f => f.Shop).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Favourite == null)
             {
@@ -45,7 +45,7 @@ namespace FarmApp.Pages.Authorized.Customer.Favourites
                 return NotFound();
             }
 
-            Favourite = await _context.Favourites.FindAsync(id);
+            Favourite = await _context.Favourites.Include(f => f.Shop).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Favourite != null)
             {

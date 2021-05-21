@@ -3,25 +3,26 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Pages/Authorized/Shared/_AppLayout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Add to Favourites</h1>
 
-<h4>Favourite</h4>
+<h4>@Model.Shop.Name</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="Index">Back to Favourites</a>
 </div>
 
 @section Scripts {
