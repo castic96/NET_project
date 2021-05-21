@@ -1,29 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
 namespace FarmApp.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// PageModel for register farmer.
+    /// </summary>
     [AllowAnonymous]
     public class RegisterFarmerModel : PageModel
     {
+        /// <summary>
+        /// Sign in manager.
+        /// </summary>
         private readonly SignInManager<User> _signInManager;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
+
+        /// <summary>
+        /// Logger.
+        /// </summary>
         private readonly ILogger<RegisterFarmerModel> _logger;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="userManager">User manager.</param>
+        /// <param name="signInManager">Sign in manager.</param>
+        /// <param name="logger">Logger.</param>
         public RegisterFarmerModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -34,13 +49,25 @@ namespace FarmApp.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
+        /// <summary>
+        /// Input for farmer registration.
+        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
+        /// <summary>
+        /// Return url.
+        /// </summary>
         public string ReturnUrl { get; set; }
 
+        /// <summary>
+        /// List of external logins.
+        /// </summary>
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        /// <summary>
+        /// Helping class for farmer registration input.
+        /// </summary>
         public class InputModel
         {
             [Required]
@@ -85,6 +112,11 @@ namespace FarmApp.Areas.Identity.Pages.Account
             public int PostalCode { get; set; }
         }
 
+        /// <summary>
+        /// Shows registration page for farmer.
+        /// </summary>
+        /// <param name="returnUrl">Return url.</param>
+        /// <returns>Page.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
 
@@ -97,6 +129,11 @@ namespace FarmApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        /// <summary>
+        /// Processes form for farmer registration.
+        /// </summary>
+        /// <param name="returnUrl">Return url.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -135,7 +172,6 @@ namespace FarmApp.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }
