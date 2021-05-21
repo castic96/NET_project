@@ -11,19 +11,41 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Farmer.Messages
 {
+    /// <summary>
+    /// PageModel for sent messages.
+    /// </summary>
     public class SentModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public SentModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public SentModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// List of sent messages.
+        /// </summary>
         public IList<Message> Message { get; set; }
 
+        /// <summary>
+        /// Shows sent messages page for current farmer.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             int[] shops = await _context.Shops
