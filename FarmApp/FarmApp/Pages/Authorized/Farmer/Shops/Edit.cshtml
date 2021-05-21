@@ -36,10 +36,10 @@
                 <span asp-validation-for="Shop.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input readonly asp-for="Shop.Latitude" class="form-control" type="hidden" />
+                <input readonly id="lat-input" asp-for="Shop.Latitude" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input readonly asp-for="Shop.Longitude" class="form-control" type="hidden" />
+                <input readonly id="lng-input" asp-for="Shop.Longitude" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <label asp-for="Image.ImageFile" class="control-label"></label>

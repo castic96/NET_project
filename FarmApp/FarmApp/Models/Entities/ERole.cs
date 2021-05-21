@@ -7,8 +7,6 @@ namespace FarmApp.Models
 {
     public static class ERole
     {
-
-        public const string ADMIN = "Admin";
         public const string CUSTOMER = "Customer";
         public const string FARMER = "Farmer";
 
