@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
@@ -11,21 +9,46 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Customer.Favourites
 {
+    /// <summary>
+    /// PageModel for favourites index page.
+    /// </summary>
     public class IndexModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public IndexModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public IndexModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// List of favourites shops for current customer.
+        /// </summary>
         public IList<Favourite> Favourite { get;set; }
 
+        /// <summary>
+        /// Dictionary for average ratings for current list of favourite shops.
+        /// </summary>
         public Dictionary<int, int> RatingAverages { get; set; }
 
+        /// <summary>
+        /// Shows favourite shops for current customer.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task OnGetAsync()
         {
             Favourite = await _context.Favourites
@@ -35,11 +58,14 @@ namespace FarmApp.Pages.Authorized.Customer.Favourites
                                     .OrderByDescending(f => f.CreateDate)
                                     .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
         }
 
-        private void calculateRatingAverages()
+        /// <summary>
+        /// Calculates average ratings for current list of favourite shops.
+        /// </summary>
+        private void CalculateRatingAverages()
         {
             RatingAverages = new Dictionary<int, int>();
 

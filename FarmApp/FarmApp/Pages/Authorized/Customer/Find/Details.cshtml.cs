@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,26 +6,48 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Customer.Find
 {
+    /// <summary>
+    /// PageModel for shop details.
+    /// </summary>
     public class DetailsModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
-        private readonly UserManager<User> _userManager;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
 
-        public DetailsModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        public DetailsModel(FarmAppContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
+        /// <summary>
+        /// Current shop.
+        /// </summary>
         public Shop Shop { get; set; }
+
+        /// <summary>
+        /// List of reviews for current shop.
+        /// </summary>
         public IList<Review> Review { get; set; }
 
+        /// <summary>
+        /// Average rating for current shop.
+        /// </summary>
         public int RatingAverage { get; set; }
 
+        /// <summary>
+        /// Shows detail of current shop.
+        /// </summary>
+        /// <param name="id">Shop id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -47,7 +68,7 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                     .Take(3)
                     .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
             if (Review.Any())
             {
@@ -57,6 +78,9 @@ namespace FarmApp.Pages.Authorized.Customer.Find
             return Page();
         }
 
+        /// <summary>
+        /// Cuts review text to maximum of 100 chars.
+        /// </summary>
         private void CutReviewText()
         {
             int maxLength = 100;
@@ -73,7 +97,10 @@ namespace FarmApp.Pages.Authorized.Customer.Find
             }
         }
 
-        private void calculateRatingAverages()
+        /// <summary>
+        /// Calculates average ratings for current list of shops.
+        /// </summary>
+        private void CalculateRatingAverages()
         {
             RatingAverage = 0;
 

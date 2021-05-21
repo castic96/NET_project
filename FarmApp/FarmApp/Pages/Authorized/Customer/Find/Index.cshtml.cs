@@ -7,28 +7,48 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FarmApp.Data;
 using FarmApp.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Customer.Find
 {
+    /// <summary>
+    /// PageModel for find index page, it shows farm shops.
+    /// </summary>
     public class IndexModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
-        private readonly UserManager<User> _userManager;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
 
-        public IndexModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        public IndexModel(FarmAppContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
+        /// <summary>
+        /// Text for filtering the search.
+        /// </summary>
         [BindProperty]
         public string Text { get; set; }
 
+        /// <summary>
+        /// List of shops.
+        /// </summary>
         public IList<Shop> Shop { get;set; }
 
+        /// <summary>
+        /// Dictionary for average ratings for current list of shops.
+        /// </summary>
         public Dictionary<int, int> RatingAverages { get; set; }
 
+        /// <summary>
+        /// Shows farm shops.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task OnGetAsync()
         {
             Shop = await _context.Shops
@@ -36,10 +56,14 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                                     .Include(shop => shop.Reviews)
                                     .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
         }
 
+        /// <summary>
+        /// Processes the form for search by shop name.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostFindByNameAsync()
         {
             if (String.IsNullOrEmpty(Text))
@@ -55,11 +79,15 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                         .OrderByDescending(shop => shop.CreateDate)
                         .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
             return Page();
         }
 
+        /// <summary>
+        /// Processes the form for search all shops.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostFindAllAsync()
         {
             Shop = await _context.Shops
@@ -67,12 +95,15 @@ namespace FarmApp.Pages.Authorized.Customer.Find
                         .Include(shop => shop.Reviews)
                         .ToListAsync();
 
-            calculateRatingAverages();
+            CalculateRatingAverages();
 
             return Page();
         }
 
-        private void calculateRatingAverages()
+        /// <summary>
+        /// Calculates average ratings for current list of shops.
+        /// </summary>
+        private void CalculateRatingAverages()
         {
             RatingAverages = new Dictionary<int, int>();
 
