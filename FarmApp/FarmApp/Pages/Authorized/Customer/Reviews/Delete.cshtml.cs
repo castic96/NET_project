@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,20 +8,43 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FarmApp.Pages.Authorized.Customer.Reviews
 {
+    /// <summary>
+    /// PageModel for review delete page.
+    /// </summary>
     public class DeleteModel : PageModel
     {
-        private readonly FarmApp.Data.FarmAppContext _context;
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
 
-        public DeleteModel(FarmApp.Data.FarmAppContext context, UserManager<User> userManager)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userManager">User manager.</param>
+        public DeleteModel(FarmAppContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Current review.
+        /// </summary>
         [BindProperty]
         public Review Review { get; set; }
 
+        /// <summary>
+        /// Shows delete page for the current review.
+        /// </summary>
+        /// <param name="id">Review id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -49,6 +69,11 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
             return Page();
         }
 
+        /// <summary>
+        /// Processes form for deleting review.
+        /// </summary>
+        /// <param name="id">Review id.</param>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
@@ -77,6 +102,10 @@ namespace FarmApp.Pages.Authorized.Customer.Reviews
             return RedirectToPage("./Index", new { id = shopId });
         }
 
+        /// <summary>
+        /// Check if the current user is owner of current review.
+        /// </summary>
+        /// <returns>true if current user is owner of current review, false otherwise.</returns>
         private bool IsOwnerOfCurrentReview()
         {
             var loggedUser = _context.Users.Find(_userManager.GetUserId(User));
