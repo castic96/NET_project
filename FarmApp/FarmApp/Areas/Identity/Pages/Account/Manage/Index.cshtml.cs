@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,13 +8,33 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 namespace FarmApp.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// PageModel for index manage page - change password.
+    /// </summary>
     [Authorize]
     public class IndexModel : PageModel
     {
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
+
+        /// <summary>
+        /// Sign in manager.
+        /// </summary>
         private readonly SignInManager<User> _signInManager;
+
+        /// <summary>
+        /// Logger.
+        /// </summary>
         private readonly ILogger<IndexModel> _logger;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="userManager">User manager.</param>
+        /// <param name="signInManager">Sign in manager.</param>
+        /// <param name="logger">Logger.</param>
         public IndexModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
@@ -28,12 +45,21 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
             _logger = logger;
         }
 
+        /// <summary>
+        /// Input for change password.
+        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
+        /// <summary>
+        /// Status message.
+        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Helping class for change password input.
+        /// </summary>
         public class InputModel
         {
             [Required]
@@ -53,6 +79,10 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
+        /// <summary>
+        /// Shows change password page.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -70,6 +100,10 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Processes form for change password.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

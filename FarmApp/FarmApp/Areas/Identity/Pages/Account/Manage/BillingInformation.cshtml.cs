@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using FarmApp.Data;
 using FarmApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,29 +10,58 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FarmApp.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// PageModel for change billing information.
+    /// </summary>
     [Authorize(Policy = "Farmers")]
     public partial class BillingInformationModel : PageModel
     {
+        /// <summary>
+        /// User manager.
+        /// </summary>
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly FarmApp.Data.FarmAppContext _context;
 
+        /// <summary>
+        /// Sign in manager.
+        /// </summary>
+        private readonly SignInManager<User> _signInManager;
+
+        /// <summary>
+        /// Database context.
+        /// </summary>
+        private readonly FarmAppContext _context;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="userManager">User manager.</param>
+        /// <param name="signInManager">Sign in manager.</param>
+        /// <param name="context">Database context.</param>
         public BillingInformationModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            FarmApp.Data.FarmAppContext context)
+            FarmAppContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
         }
 
+        /// <summary>
+        /// Input for change billing information.
+        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
+        /// <summary>
+        /// Status message.
+        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Helping class for change billing information input.
+        /// </summary>
         public class InputModel
         {
             [Required]
@@ -68,6 +95,10 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
             public int PostalCode { get; set; }
         }
 
+        /// <summary>
+        /// Shows change billing information page.
+        /// </summary>
+        /// <returns>Page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -90,6 +121,10 @@ namespace FarmApp.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Processes form for change billing information.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
